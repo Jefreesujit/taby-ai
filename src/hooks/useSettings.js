@@ -5,9 +5,9 @@ export const useSettings = async () => {
   const data = await fetchSyncStorage();
 
   const defaultSettings = {
-    isApiKeySet: false,
     theme: 'light',
-    model: 'gemini-pro',
+    temperature: 0.3,
+    topK: 10,
   }
 
   if (!data) {
@@ -15,8 +15,9 @@ export const useSettings = async () => {
   }
 
   return {
-    isApiKeySet: data.API_KEY ? true : false,
+    ...defaultSettings,
     theme: data.theme || defaultSettings.theme,
-    model: data.MODEL || defaultSettings.model,
+    temperature: Number(data.temperature) || defaultSettings.temperature,
+    topK: Number(data.topK) || defaultSettings.topK,
   };
 };
