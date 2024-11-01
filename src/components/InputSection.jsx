@@ -52,7 +52,7 @@ const InputSection = () => {
       } catch (error) {
         console.error(error);
         setMessageLoading(false);
-        toast.error("Something went wrong. Please check your API key and try again.");
+        toast.error("Something went wrong. Please try refreshing the page or try asking a different question.");
       }
     }
   };
