@@ -10,23 +10,33 @@ const clearChatHistory = async (tabId) => {
 async function getPageContent(tabId) {
   const tab = await chrome.tabs.get(tabId);
   console.log('background Tab', tab);
-  if (tab.url && !tab.url.startsWith('http')) {
+  if (!tab.url && !tab.url.startsWith('http')) {
     return;
   }
   const injection = await chrome.scripting.executeScript({
     target: { tabId },
-    files: ['scripts/content.js']
+    files: ['./content.js']
   });
   chrome.storage.session.set({ pageContent: injection[0].result });
 }
+
+const updateActiveTabId = async (tabId) => {
+  await chrome.storage.local.set({ activeTabId: `taby-${tabId}` });
+  console.log('Active tab id updated in background.js');
+};
 
 chrome.tabs.onRemoved.addListener((tabId) => {
   clearChatHistory(tabId);
 });
 
-// chrome.tabs.onActivated.addListener((activeInfo) => {
-//   getPageContent(activeInfo.tabId);
-// });
-// chrome.tabs.onUpdated.addListener(async (tabId) => {
-//   getPageContent(tabId);
-// });
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  // await getPageContent(activeInfo.tabId);
+  await updateActiveTabId(activeInfo.tabId);
+});
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+  if (changeInfo.status === 'complete') {
+    // await getPageContent(tabId);
+    await updateActiveTabId(tabId);
+  }
+});
