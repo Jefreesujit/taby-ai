@@ -1,12 +1,16 @@
 import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import { MessagesPlaceholder, ChatPromptTemplate, SystemMessagePromptTemplate } from '@langchain/core/prompts';
 import { SYSTEM_PROMPT } from '../constants';
-import { fetchChatHistory, updateChatHistory, fetchPageContext, getPrompt } from '../utils';
+import { fetchChatHistory, updateChatHistory, fetchPageContext, getPrompt, fetchSyncStorage } from '../utils';
 
 let model;
 
 const getModel = async (pageContext) => {
-  const { available, defaultTemperature, defaultTopK, maxTopK } = await ai.languageModel.capabilities();
+  const { available, defaultTemperature, defaultTopK } = await ai.languageModel.capabilities();
+  const { topK, temperature } = await fetchSyncStorage();
+  const temperatureValue = temperature || defaultTemperature;
+  const topKValue = topK || defaultTopK;
+  console.log('Top K and temperature from settings', topKValue, temperatureValue);
   if (available !== "no") {
     if (!model) {
       console.log('Model not available, creating new one');
@@ -21,9 +25,8 @@ const getModel = async (pageContext) => {
       console.log('System prompt', systemPrompt);
       model = await ai.languageModel.create({
         systemPrompt,
-        temperature: defaultTemperature,
-        topK: defaultTopK,
-        maxTopK: maxTopK
+        temperature: temperatureValue,
+        topK: topKValue
       });
     }
     return model;

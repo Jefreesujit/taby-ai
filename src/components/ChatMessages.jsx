@@ -6,7 +6,7 @@ import browser from 'webextension-polyfill';
 import MessageItem from './MessageItem';
 
 /* -----------------Helpers & Hooks--------------- */
-// import { useSettings } from '../hooks/useSettings';
+import { useSettings } from '../hooks/useSettings';
 import { useStore } from '../store';
 
 /* -----------------Styles--------------- */
@@ -39,6 +39,9 @@ const ChatMessages = () => {
 
   //   fetchSettings();
   // }, []);
+
+  const settings = useSettings();
+  const { theme } = settings;
 
   const isPlaceholder = messages.length === 0;
 

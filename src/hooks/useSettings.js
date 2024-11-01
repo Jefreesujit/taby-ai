@@ -1,23 +1,51 @@
-/* -----------------Helpers & Hooks--------------- */
+// useSettings.js
+
+import { useState, useEffect } from 'react';
 import { fetchSyncStorage } from '../utils';
 
-export const useSettings = async () => {
-  const data = await fetchSyncStorage();
-
-  const defaultSettings = {
+export const useSettings = () => {
+  const [settings, setSettings] = useState({
     theme: 'light',
     temperature: 0.3,
     topK: 10,
-  }
+  });
 
-  if (!data) {
-    return defaultSettings;
-  }
+  useEffect(() => {
+    // Async function to load initial settings
+    const loadSettings = async () => {
+      const data = await fetchSyncStorage();
+      if (data) {
+        setSettings(prevSettings => ({
+          ...prevSettings,
+          theme: data.theme || prevSettings.theme,
+          temperature: Number(data.temperature) || prevSettings.temperature,
+          topK: Number(data.topK) || prevSettings.topK,
+        }));
+      }
+    };
 
-  return {
-    ...defaultSettings,
-    theme: data.theme || defaultSettings.theme,
-    temperature: Number(data.temperature) || defaultSettings.temperature,
-    topK: Number(data.topK) || defaultSettings.topK,
-  };
+    // Initial load of settings
+    loadSettings();
+
+    // Listener for storage changes
+    const handleStorageChange = (changes, area) => {
+      if (area === 'sync') {
+        setSettings(prevSettings => ({
+          ...prevSettings,
+          theme: changes.theme ? changes.theme.newValue : prevSettings.theme,
+          temperature: changes.temperature ? Number(changes.temperature.newValue) : prevSettings.temperature,
+          topK: changes.topK ? Number(changes.topK.newValue) : prevSettings.topK,
+        }));
+      }
+    };
+
+    chrome.storage.onChanged.addListener(handleStorageChange);
+
+    // Cleanup the listener on component unmount
+    return () => {
+      chrome.storage.onChanged.removeListener(handleStorageChange);
+    };
+  }, []);
+
+  return settings;
 };

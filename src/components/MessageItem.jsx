@@ -23,16 +23,19 @@ Pre.propTypes = {
 const MessageItem = ({ message }) => {
   const { role, content } = message;
 
-  const [theme, setTheme] = useState('light');
+  // const [theme, setTheme] = useState('light');
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const fetchedSettings = await useSettings();
-      setTheme(fetchedSettings.theme);
-    };
+  // useEffect(() => {
+  //   const fetchSettings = async () => {
+  //     const fetchedSettings = await useSettings();
+  //     setTheme(fetchedSettings.theme);
+  //   };
 
-    fetchSettings();
-  }, []);
+  //   fetchSettings();
+  // }, []);
+
+  const settings = useSettings();
+  const { theme } = settings;
 
   const isDark = theme === 'dark';
 

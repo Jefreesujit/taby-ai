@@ -15,16 +15,19 @@ const App = () => {
 
   const { messages, updateMessageHistory } = useStore();
 
-  const [theme, setTheme] = useState('light');
+  // const [theme, setTheme] = useState('light');
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const fetchedSettings = await useSettings();
-      setTheme(fetchedSettings.theme);
-    };
+  const settings = useSettings();
+  const { theme } = settings;
 
-    fetchSettings();
-  }, []);
+  // useEffect(() => {
+  //   const fetchSettings = async () => {
+  //     const fetchedSettings = await useSettings();
+  //     setTheme(fetchedSettings.theme);
+  //   };
+
+  //   fetchSettings();
+  // }, []);
 
   useEffect(async () => {
     const chatHistory = await initChatHistory();

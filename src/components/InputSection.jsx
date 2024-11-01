@@ -17,16 +17,19 @@ import { sendMessage } from '../services';
 const InputSection = () => {
   const { updateMessageContext, setMessageLoading, setStreamMessage } = useStore();
   const [message, setMessage] = useState('');
-  const [settings, setSettings] = useState(null);
+  // const [settings, setSettings] = useState(null);
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const fetchedSettings = await useSettings();
-      setSettings(fetchedSettings);
-    };
+  // useEffect(() => {
+  //   const fetchSettings = async () => {
+  //     const fetchedSettings = await useSettings();
+  //     setSettings(fetchedSettings);
+  //   };
 
-    fetchSettings();
-  }, []);
+  //   fetchSettings();
+  // }, []);
+
+  const settings = useSettings();
+  const { theme } = settings;
 
   const handleInputChange = (event) => {
     setMessage(event.target.value);
