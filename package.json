@@ -1,0 +1,30 @@
+{
+  "name": "tabyai",
+  "version": "2.3.1",
+  "description": "Interactive AI chat with your current webpage.",
+  "main": "src/background.js",
+  "scripts": {
+    "start": "esbuild --config esbuild.config.js",
+    "build": "node esbuild.mjs"
+  },
+  "keywords": [
+    "chat",
+    "extension",
+    "react",
+    "chrome"
+  ],
+  "author": "Jefree Sujit",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@chialab/esbuild-plugin-postcss": "^0.18.0",
+    "autoprefixer": "^10.4.19",
+    "esbuild": "^0.14.0",
+    "esbuild-plugin-copy": "^2.1.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.37.1",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^2.2.19"
+  }
+}
