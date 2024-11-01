@@ -16,6 +16,17 @@
   "author": "Jefree Sujit",
   "license": "ISC",
   "dependencies": {
+    "@langchain/core": "^0.3.11",
+    "@mozilla/readability": "^0.5.0",
+    "lucide-react": "^0.364.0",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.4.1",
+    "react-markdown": "^8.0.7",
+    "react-syntax-highlighter": "^15.5.0",
+    "webextension-polyfill": "^0.12.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@chialab/esbuild-plugin-postcss": "^0.18.0",
