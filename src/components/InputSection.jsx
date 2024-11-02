@@ -67,7 +67,7 @@ const InputSection = () => {
   const isDark = settings && settings.theme === 'dark';
 
   return (
-    <div className="pt-2 flex justify-between items-center">
+    <div className="pt-2 flex justify-center items-center max-w-lg mx-auto w-full">
       <Toaster position="top-center" toastOptions={{ duration: 3000, className:'toast-message' }} />
       <textarea
         className={`border border-gray-300 rounded-lg p-2 flex-grow max-h-20 resize-none overflow-y-auto ${isDark ? 'bg-slate-500 text-white' : 'bg-white text-black'}`}

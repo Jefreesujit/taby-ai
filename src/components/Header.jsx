@@ -41,7 +41,7 @@ const Header = () => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center">
-        <img className={`w-11 h-11 bg-gray-50 rounded-lg mr-2 ${isDark ? 'text-white' : ''}`} src="assets/icon.png" alt="Taby AI Icon" />
+        <img className={`w-11 h-11 bg-white rounded-lg mr-2 ${isDark ? 'text-white' : ''}`} src="assets/icon.png" alt="Taby AI Icon" />
         <div className="flex flex-col">
           <div className={`font-bold text-lg ${isDark ? 'text-white' : 'text-black'}`}>Taby AI</div>
           <div className={`text-xs ${isDark ? 'text-white' : 'text-black'}`}>Chat with this page!</div>

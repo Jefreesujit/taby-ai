@@ -42,7 +42,7 @@ const App = () => {
   }, [activeTabId]);
 
   return (
-    <div className={`qwikassist h-screen flex flex-col justify-between p-4 box-border text-sm font-sans ${theme === 'dark' ? 'bg-slate-700' : 'bg-gray-50'}`}>
+    <div className={`qwikassist h-screen flex flex-col justify-between p-4 box-border text-sm font-sans ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
       <Header />
       <ChatMessages />
       <InputSection />
