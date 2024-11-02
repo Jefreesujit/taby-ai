@@ -3,7 +3,7 @@
   "name": "Taby AI",
   "version": "0.1.0",
   "description": "Interactive AI chat with your current webpage.",
-  "permissions": ["activeTab", "storage", "sidePanel", "scripting"],
+  "permissions": ["activeTab", "storage", "sidePanel", "contextMenus"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_title": "Open Taby AI",

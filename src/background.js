@@ -29,6 +29,22 @@ chrome.tabs.onRemoved.addListener((tabId) => {
   clearChatHistory(tabId);
 });
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: "openTabyAI",
+    title: "Chat with Taby AI",
+    contexts: ["all"]
+  });
+});
+
+// Handle clicks on the context menu item
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  console.log("Context menu clicked", info, tab);
+  if (info.menuItemId === "openTabyAI") {
+    chrome.sidePanel.open({ windowId: tab.windowId });
+  }
+});
+
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
   // await getPageContent(activeInfo.tabId);
   await updateActiveTabId(activeInfo.tabId);
