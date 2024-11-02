@@ -7,7 +7,7 @@ import a11yLight from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-light'
 import CodeCopyBtn from './CopyBtn';
 import { useSettings } from '../hooks/useSettings';
 
-const Pre = ({ children, theme }) => <pre className={`mb-4 shadow-lg relative ${theme === 'dark' ? 'bg-slate-700' : 'bg-gray-50'} border border-gray-400 rounded-md pt-1 m-2 font-mono text-sm`}>
+const Pre = ({ children, theme }) => <pre className={`mb-4 shadow-lg relative ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'} border border-gray-400 rounded-md pt-1 m-2 font-mono text-sm`}>
   <div className="flex justify-between items-center pb-1 border-b border-gray-400">
     <div className="ml-2 font-bold">Code</div>
     <CodeCopyBtn theme={theme} >{children}</CodeCopyBtn>
@@ -22,17 +22,6 @@ Pre.propTypes = {
 
 const MessageItem = ({ message }) => {
   const { role, content } = message;
-
-  // const [theme, setTheme] = useState('light');
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setTheme(fetchedSettings.theme);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
 
   const settings = useSettings();
   const { theme } = settings;

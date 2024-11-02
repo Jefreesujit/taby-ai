@@ -17,19 +17,8 @@ import { sendMessage } from '../services';
 const InputSection = () => {
   const { updateMessageContext, setMessageLoading, setStreamMessage } = useStore();
   const [message, setMessage] = useState('');
-  // const [settings, setSettings] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setSettings(fetchedSettings);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
 
   const settings = useSettings();
-  const { theme } = settings;
 
   const handleInputChange = (event) => {
     setMessage(event.target.value);
@@ -52,7 +41,7 @@ const InputSection = () => {
       } catch (error) {
         console.error(error);
         setMessageLoading(false);
-        toast.error("Something went wrong. Please check your API key and try again.");
+        toast.error("Something went wrong. Please try refreshing the page or try asking a different question.");
       }
     }
   };
@@ -67,10 +56,10 @@ const InputSection = () => {
   const isDark = settings && settings.theme === 'dark';
 
   return (
-    <div className="pt-2 flex justify-between items-center">
+    <div className="pt-2 flex justify-center items-center max-w-lg mx-auto w-full">
       <Toaster position="top-center" toastOptions={{ duration: 3000, className:'toast-message' }} />
       <textarea
-        className={`border border-gray-300 rounded-lg p-2 flex-grow max-h-20 resize-none overflow-y-auto ${isDark ? 'bg-slate-500 text-white' : 'bg-white text-black'}`}
+        className={`border border-gray-300 rounded-lg p-2 flex-grow max-h-20 resize-none overflow-y-auto ${isDark ? 'bg-slate-700 text-white' : 'bg-white text-black'}`}
         placeholder="Type your message here..."
         value={message}
         onChange={handleInputChange}

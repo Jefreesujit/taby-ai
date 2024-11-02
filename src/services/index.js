@@ -14,17 +14,8 @@ const getModel = async (pageContext) => {
   if (available !== "no") {
     if (!model) {
       console.log('Model not available, creating new one');
-      let pageContext = '';
-      try {
-        pageContext = await fetchPageContext();
-        console.log('pageContext', pageContext);
-      } catch (error) {
-        console.log('Error fetching page context', error);
-      }
-      const systemPrompt = getPrompt(pageContext);
-      console.log('System prompt', systemPrompt);
       model = await ai.languageModel.create({
-        systemPrompt,
+        systemPrompt: SYSTEM_PROMPT,
         temperature: temperatureValue,
         topK: topKValue
       });
@@ -39,9 +30,15 @@ const messageAI = async (message, cb) => {
   const userHistory = chatHistory.map((item) => item.role === 'user' ? new HumanMessage(item.message) : new AIMessage(item.message));
   userHistory.push(new HumanMessage(message));
   const model = await getModel();
-  // const pageContext = 'Sun shines brightly on the forest floor.';
-  // const prompt = getPrompt(pageContext, message);
-  const prompt = message;
+  let pageContext = '';
+  try {
+    pageContext = await fetchPageContext();
+  } catch (error) {
+    console.log('Error fetching page context', error);
+  }
+  const prompt = getPrompt(pageContext, message);
+  // console.log('Prompt', prompt);
+  // const prompt = message;
   const stream = model.promptStreaming(prompt);
   let response = '';
   for await (const chunk of stream) {

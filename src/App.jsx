@@ -15,33 +15,20 @@ const App = () => {
 
   const { messages, updateMessageHistory } = useStore();
 
-  // const [theme, setTheme] = useState('light');
-
   const settings = useSettings();
-  const { theme } = settings;
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setTheme(fetchedSettings.theme);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
+  const { theme, activeTabId } = settings;
 
   useEffect(async () => {
-    const chatHistory = await initChatHistory();
+    const chatHistory = await initChatHistory(activeTabId);
     // console.log('Init chatHistory', chatHistory);
     const messageContext = chatHistory ? chatHistory.map((item) => ({
       role: item.role, content: item.message,
     })).slice(2) : [];
-    if (messages.length === 0 && messageContext.length > 0) {
-      updateMessageHistory(messageContext);
-    }
-  }, []);
+    updateMessageHistory(messageContext);
+  }, [activeTabId]);
 
   return (
-    <div className={`qwikassist h-screen flex flex-col justify-between p-4 box-border text-sm font-sans ${theme === 'dark' ? 'bg-slate-700' : 'bg-gray-50'}`}>
+    <div className={`qwikassist h-screen flex flex-col justify-between p-4 box-border text-sm font-sans ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
       <Header />
       <ChatMessages />
       <InputSection />
