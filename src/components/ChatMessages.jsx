@@ -6,7 +6,6 @@ import browser from 'webextension-polyfill';
 import MessageItem from './MessageItem';
 
 /* -----------------Helpers & Hooks--------------- */
-import { useSettings } from '../hooks/useSettings';
 import { useStore } from '../store';
 
 /* -----------------Styles--------------- */
@@ -28,20 +27,6 @@ const SkeletonMessage = () => (
 const ChatMessages = () => {
   const { messages, loading, streamMessage } = useStore();
   const [ streamContent, setStreamContent ] = useState('');
-
-  // const [settings, setSettings] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setSettings(fetchedSettings);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
-
-  const settings = useSettings();
-  const { theme } = settings;
 
   const isPlaceholder = messages.length === 0;
 

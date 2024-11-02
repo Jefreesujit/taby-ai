@@ -1,13 +1,11 @@
-// useSettings.js
-
 import { useState, useEffect } from 'react';
 import { fetchSyncStorage, fetchLocalStorage } from '../utils';
 
 export const useSettings = () => {
   const [settings, setSettings] = useState({
     theme: 'light',
-    temperature: 0.3,
-    topK: 10,
+    temperature: 1,
+    topK: 3,
     activeTabId: '',
   });
 

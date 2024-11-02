@@ -22,21 +22,9 @@ const Header = () => {
     updateMessageHistory([]);
   }
 
-  // const [theme, setTheme] = useState('light');
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setTheme(fetchedSettings.theme);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
-
   const settings = useSettings();
-  const { theme } = settings;
 
-  const isDark = theme === 'dark';
+  const isDark = settings && settings.theme === 'dark';
 
   return (
     <div className="flex items-center justify-between">

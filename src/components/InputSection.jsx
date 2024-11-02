@@ -17,19 +17,8 @@ import { sendMessage } from '../services';
 const InputSection = () => {
   const { updateMessageContext, setMessageLoading, setStreamMessage } = useStore();
   const [message, setMessage] = useState('');
-  // const [settings, setSettings] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setSettings(fetchedSettings);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
 
   const settings = useSettings();
-  const { theme } = settings;
 
   const handleInputChange = (event) => {
     setMessage(event.target.value);
@@ -70,7 +59,7 @@ const InputSection = () => {
     <div className="pt-2 flex justify-center items-center max-w-lg mx-auto w-full">
       <Toaster position="top-center" toastOptions={{ duration: 3000, className:'toast-message' }} />
       <textarea
-        className={`border border-gray-300 rounded-lg p-2 flex-grow max-h-20 resize-none overflow-y-auto ${isDark ? 'bg-slate-500 text-white' : 'bg-white text-black'}`}
+        className={`border border-gray-300 rounded-lg p-2 flex-grow max-h-20 resize-none overflow-y-auto ${isDark ? 'bg-slate-700 text-white' : 'bg-white text-black'}`}
         placeholder="Type your message here..."
         value={message}
         onChange={handleInputChange}

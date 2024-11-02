@@ -15,30 +15,16 @@ const App = () => {
 
   const { messages, updateMessageHistory } = useStore();
 
-  // const [theme, setTheme] = useState('light');
-
   const settings = useSettings();
   const { theme, activeTabId } = settings;
 
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     const fetchedSettings = await useSettings();
-  //     setTheme(fetchedSettings.theme);
-  //   };
-
-  //   fetchSettings();
-  // }, []);
-
   useEffect(async () => {
-    // console.log('Tab switched to', activeTabId);
     const chatHistory = await initChatHistory(activeTabId);
     // console.log('Init chatHistory', chatHistory);
     const messageContext = chatHistory ? chatHistory.map((item) => ({
       role: item.role, content: item.message,
     })).slice(2) : [];
-    // if (messages.length === 0 && messageContext.length > 0) {
     updateMessageHistory(messageContext);
-    // }
   }, [activeTabId]);
 
   return (

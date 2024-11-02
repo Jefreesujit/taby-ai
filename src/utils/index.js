@@ -64,9 +64,7 @@ export const updateChatHistory = async (userMessage, modelResponse) => {
   return chatHistory;
 };
 
-export const initChatHistory = async () => {
-  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-  const activeTabId = `taby-${tabs[0].id}`;
+export const initChatHistory = async (activeTabId) => {
   await chrome.storage.local.set({ activeTabId });
   let chatHistory = await fetchChatHistory();
   // console.log('Chat history fetched from initChatHistory', chatHistory);
@@ -84,5 +82,5 @@ export const resetChatHistory = async () => {
   const { activeTabId } = await chrome.storage.local.get(['activeTabId']);
   // console.log('Active tab id fetched from fetchChatHistory', activeTabId);
   await chrome.storage.local.remove([activeTabId]);
-  await initChatHistory();
+  await initChatHistory(activeTabId);
 };
